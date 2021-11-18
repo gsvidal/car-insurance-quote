@@ -10,7 +10,7 @@ const Field = styled.div`
   & div {
     margin: 0;
   }
-  @media (max-width: 400px) {
+  @media (max-width: 420px) {
     & .inputs {
       flex-direction: column;
       justify-content: center;
@@ -30,8 +30,8 @@ const Input = styled.input`
 `;
 const Label = styled.label`
   display: inline-block;
-  flex: 0 0 120px;
-  @media (max-width: 400px) {
+  flex: 0 0 110px;
+  @media (max-width: 420px) {
     margin-right: 10px;
     flex: 0 0 30px;
   }
