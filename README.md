@@ -1,3 +1,6 @@
+# Car Insurance Quote
+A react app with styled components where you can get a car insurance quotation
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
