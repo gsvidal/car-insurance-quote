@@ -1,5 +1,5 @@
 # Car Insurance Quote
-A react app with styled components where you can get a car insurance quotation
+A react app with styled components where you can calculate a car insurance quotation starting with a base rate of your choice and the final cost would depend on the bran, year and plan options you'll take.
 
 # Getting Started with Create React App
 

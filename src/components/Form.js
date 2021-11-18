@@ -7,8 +7,18 @@ const Field = styled.div`
   display: flex;
   margin-bottom: 1rem;
   align-items: center;
+  & div {
+    margin: 0;
+  }
+  @media (max-width: 400px) {
+    & .inputs {
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
 `;
 const Input = styled.input`
+  width: 100%;
   padding: 15px;
   border: 1px solid #00838F;
   border-radius: 5px;
@@ -19,7 +29,12 @@ const Input = styled.input`
   }
 `;
 const Label = styled.label`
-  flex: 0 0 100px;
+  display: inline-block;
+  flex: 0 0 120px;
+  @media (max-width: 400px) {
+    margin-right: 10px;
+    flex: 0 0 30px;
+  }
 `;
 const Select = styled.select`
   display: block;
@@ -190,6 +205,8 @@ const Form = ({setSummary, setSpinner}) => {
 
       <Field>
         <p className="plan-label">Plan:</p>
+        <Field className="inputs">
+        
         <InputRadio 
           type="radio"
           name="plan"
@@ -198,6 +215,8 @@ const Form = ({setSummary, setSpinner}) => {
           checked={plan === "Basic"}
           onChange={handleChange}
         /><Label htmlFor="plan-basic">Basic</Label>
+        
+        
         <InputRadio 
           type="radio"
           name="plan"
@@ -206,6 +225,8 @@ const Form = ({setSummary, setSpinner}) => {
           checked={plan === "Full"}
           onChange={handleChange}
         /><Label htmlFor="plan-full">Full</Label>
+        
+        </Field>
       </Field>
 
       <Button type="submit">Get quote</Button>

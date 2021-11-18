@@ -14,6 +14,9 @@ const Container = styled.div`
 const ContainerForm = styled.div`
   background-color: #FFFFFF;
   padding: 3rem;
+  @media (max-width: 400px) {
+    padding: 1rem;
+  }
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 `;
