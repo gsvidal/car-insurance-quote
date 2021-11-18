@@ -45,9 +45,7 @@ function App() {
           setSpinner={setSpinner}
         />
         { spinner &&
-        <Spinner
-          
-        />
+        <Spinner />
         }
         { !spinner &&
         <Fragment>

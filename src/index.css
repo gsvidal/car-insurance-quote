@@ -12,6 +12,9 @@ ul {
   padding: 0;
   margin: 0;
 }
+.plan-label {
+  margin-right: 50px;
+}
 .price {
   position: relative;
   width: 100%;

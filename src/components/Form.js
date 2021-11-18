@@ -1,11 +1,22 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
+import PropTypes from 'prop-types';
 import { getYearDiff, getBrand, getPlan } from '../helper';
 
 const Field = styled.div`
   display: flex;
   margin-bottom: 1rem;
   align-items: center;
+`;
+const Input = styled.input`
+  padding: 15px;
+  border: 1px solid #00838F;
+  border-radius: 5px;
+  background-color: #fff;
+  -webkit-appearance: none;
+  &::placeholder {
+    color: #aaa;
+  }
 `;
 const Label = styled.label`
   flex: 0 0 100px;
@@ -50,14 +61,16 @@ const Error = styled.div`
 const Form = ({setSummary, setSpinner}) => {
 
   const [ data, setData ] = useState({
+    base: "",
     brand: "",
     year: "",
     plan: ""
   });
   const [ error, setError ] = useState(false);
+  const [ errorInput, setErrorInput ] = useState(false);
 
   // Extract state values
-  const { brand, year, plan } = data;
+  const { base, brand, year, plan } = data;
 
   // Read Form data and setData
   const handleChange = event => {
@@ -74,11 +87,17 @@ const Form = ({setSummary, setSpinner}) => {
     if(brand.trim() === "" || year.trim() === "" || plan.trim() === "") {
       setError(true);
       return;
+    } else if(base < 1 ){
+      setError(false);
+      setErrorInput(true);
+      return;
     }
+    
     setError(false);
-
-    // base price: 2000
-    let price = 2167;
+    setErrorInput(false);
+  
+    // base is assigned to price variable
+    let price = base;
 
     // obtain years diff
     const diff = getYearDiff(year);
@@ -95,7 +114,7 @@ const Form = ({setSummary, setSpinner}) => {
     // Full + 50%
     price = parseFloat((getPlan(plan) * price).toFixed(2));
 
-    // Total
+    // Setting summary after finish loading
     setSpinner(true);
     setTimeout(() => {
       setSummary({
@@ -103,10 +122,7 @@ const Form = ({setSummary, setSpinner}) => {
         data
       })
       setSpinner(false);
-    }, 1500);
-    
-
-    
+    }, 2000);  
   }
 
   return(
@@ -115,13 +131,27 @@ const Form = ({setSummary, setSpinner}) => {
       onSubmit={handleSubmit}
     >
       { error && 
-      <Error>All fields are required !</Error>
+        <Error>All fields are required !</Error>
       } 
+      { errorInput &&
+        <Error>Base rate has to be greater than 0 !</Error>
+      }
       <Field>
-        <Label htmlFor="">Brand</Label>
+        <Label htmlFor="base">Base Rate($):</Label>
+        <Input 
+          placeholder="2000"
+          type="number"
+          name="base" 
+          id="base"
+          value={base}
+          onChange={handleChange}
+        />
+      </Field>
+      <Field>
+        <Label htmlFor="brand">Brand:</Label>
         <Select 
           name="brand" 
-          id=""
+          id="brand"
           value={brand}
           onChange={handleChange}
         >
@@ -133,10 +163,10 @@ const Form = ({setSummary, setSpinner}) => {
       </Field>
 
       <Field>
-        <Label htmlFor="">Year</Label>
+        <Label htmlFor="year">Year:</Label>
         <Select 
           name="year" 
-          id=""
+          id="year"
           value={year}
           onChange={handleChange}
         >
@@ -151,31 +181,42 @@ const Form = ({setSummary, setSpinner}) => {
           <option value="2014">2014</option>
           <option value="2013">2013</option>
           <option value="2012">2012</option>
+          <option value="2011">2011</option>
+          <option value="2010">2010</option>
+          <option value="2009">2009</option>
+          <option value="2008">2008</option>
         </Select>
       </Field>
 
       <Field>
-        <Label htmlFor="">Plan</Label>
+        <p className="plan-label">Plan:</p>
         <InputRadio 
           type="radio"
           name="plan"
+          id="plan-basic"
           value="Basic"
           checked={plan === "Basic"}
           onChange={handleChange}
-        />Basic
+        /><Label htmlFor="plan-basic">Basic</Label>
         <InputRadio 
           type="radio"
           name="plan"
+          id="plan-full"
           value="Full"
           checked={plan === "Full"}
           onChange={handleChange}
-        />Full
+        /><Label htmlFor="plan-full">Full</Label>
       </Field>
 
       <Button type="submit">Get quote</Button>
 
     </form>
   );
+}
+
+Form.propTypes = {
+  setSummary: PropTypes.func.isRequired, 
+  setSpinner: PropTypes.func.isRequired
 }
 
 export default Form;

@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import styled from '@emotion/styled';
+import PropTypes from 'prop-types';
 
 const ContainerSummary = styled.div`
   padding: 1rem;
@@ -29,7 +30,7 @@ const Summary = ({data}) => {
 
   return(
     <ContainerSummary>
-      <h2>Quote Summary</h2>
+      <h2>Quote Summary:</h2>
       <List>
         <ListItem>Brand: {brand}</ListItem>
         <ListItem>Year: {year}</ListItem>
@@ -38,6 +39,10 @@ const Summary = ({data}) => {
     </ContainerSummary>
     
   );
+}
+
+Summary.propTypes = {
+  data: PropTypes.object.isRequired
 }
 
 export default Summary;
